@@ -28,6 +28,7 @@ MANIFEST
 .idea
 *.pyc
 migrations
+*.sqlite
 
 
 # PyInstaller
