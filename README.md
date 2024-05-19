@@ -450,7 +450,7 @@ Project Link: [Task Management System API](https://github.com/engrmarkk/task_man
 
 [//]: # (Live Link: [Live Link]&#40;https://speedpay-test-f0cbc8c0843d.herokuapp.com/&#41;)
 
-Postman Documentation: [Postman DOC](https://github.com/engrmarkk/task_management_system)
+Postman Documentation: [Postman DOC](https://documenter.getpostman.com/view/30792613/2sA3QmDa7z)
 <p align="right"><a href="#readme-top">back to top</a></p>
 
 ---
