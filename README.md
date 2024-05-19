@@ -233,7 +233,6 @@ Python3: [Get Python](https://www.python.org/downloads/)
 <br>
 POST (Register) http://127.0.0.1:8000/api/v1/auth/register
 
-To get registered as an admin, make sure your email ends with @speedpay
 
 REQUEST
 ```json
@@ -242,6 +241,14 @@ REQUEST
   "password": "password"
 }
 ```
+
+RESPONSE (Success)
+```json
+ {
+    "message": "User created successfully"
+}
+```
+
 RESPONSE (Error)
 ```json
  {
@@ -282,7 +289,7 @@ REQUEST
 RESPONSE (Success)
 ```json
   {
-    "access_token": "eyJhbGciOiJIUzIEyM...................",
+    "access_token": "eyJhbGciOiJIUzIEyM..................."
   }
 ```
 RESPONSE (Error)
@@ -441,7 +448,7 @@ Adeniyi Olanrewaju - [@iamengrmark](https://twitter.com/iamengrmark) - adeniyibo
 
 Project Link: [Task Management System API](https://github.com/engrmarkk/task_management_system) <br>
 
-Live Link: [Live Link](https://speedpay-test-f0cbc8c0843d.herokuapp.com/)
+[//]: # (Live Link: [Live Link]&#40;https://speedpay-test-f0cbc8c0843d.herokuapp.com/&#41;)
 
 Postman Documentation: [Postman DOC](https://github.com/engrmarkk/task_management_system)
 <p align="right"><a href="#readme-top">back to top</a></p>
