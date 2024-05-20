@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import current_user, jwt_required
 from extensions import db
 from models import Task
@@ -16,10 +16,10 @@ def get_tasks():
     try:
         tasks = Task.query.filter_by(user_id=current_user.id
                                      ).order_by(desc(Task.date_created)).all()
-        return {"tasks": [task.to_dict() for task in tasks]}, 200
+        return jsonify({"tasks": [task.to_dict() for task in tasks]}), 200
     except Exception as e:
         print(e, "error@Get_tasks")
-        return {"message": "Network Error"}, 500
+        return jsonify({"message": "Network Error"}), 500
 
 
 @user_blp.route("/get_one_task/<task_id>", methods=["GET"])
@@ -29,11 +29,11 @@ def get_one_task(task_id):
         task = Task.query.filter_by(user_id=current_user.id,
                                      id=task_id).first()
         if not task:
-            return {"message": "Task not found"}, 404
-        return {"message": "Task found", "task": task.to_dict() }, 200
+            return jsonify({"message": "Task not found"}), 404
+        return jsonify({"message": "Task found", "task": task.to_dict() }), 200
     except Exception as e:
         print(e, "error@Get_tasks")
-        return {"message": "Network Error"}, 500
+        return jsonify({"message": "Network Error"}), 500
 
 
 @user_blp.route("/create_task", methods=["POST"])
@@ -46,9 +46,9 @@ def create_task():
         task_content = data.get("content")
 
         if not title:
-            return {"message": "Title is required"}, 400
+            return jsonify({"message": "Title is required"}), 400
         if not task_content:
-            return {"message": "Task content is required"}, 400
+            return jsonify({"message": "Task content is required"}), 400
 
         task = Task(
             title=title,
@@ -58,11 +58,11 @@ def create_task():
         db.session.add(task)
         db.session.commit()
         notify_task_creation(task)
-        return {"message": "Task created successfully"}, 201
+        return jsonify({"message": "Task created successfully"}), 201
     except Exception as e:
         print(e, "error@Create_task")
         db.session.rollback()
-        return {"message": "Network Error"}, 500
+        return jsonify({"message": "Network Error"}), 500
 
 
 # update task
@@ -72,7 +72,7 @@ def update_task(task_id):
     try:
         task = Task.query.filter_by(id=task_id, user_id=current_user.id).first()
         if not task:
-            return {"message": "No task found"}, 404
+            return jsonify({"message": "No task found"}), 404
 
         data = request.get_json()
         title = data.get("title")
@@ -83,16 +83,16 @@ def update_task(task_id):
         task.task_content = task_content if task_content else task.task_content
 
         if completed and not isinstance(completed, bool):
-            return {"message": "Invalid data type for completed"}, 400
+            return jsonify({"message": "Invalid data type for completed"}), 400
 
         task.completed = completed if completed else task.completed
 
         db.session.commit()
-        return {"message": "Task updated successfully"}, 200
+        return jsonify({"message": "Task updated successfully"}), 200
     except Exception as e:
         print(e, "error@Update_task")
         db.session.rollback()
-        return {"message": "Network Error"}, 500
+        return jsonify({"message": "Network Error"}), 500
 
 
 # delete task
@@ -102,11 +102,11 @@ def delete_task(task_id):
     try:
         task = Task.query.filter_by(id=task_id, user_id=current_user.id).first()
         if not task:
-            return {"message": "No task found"}, 404
+            return jsonify({"message": "No task found"}), 404
         db.session.delete(task)
         db.session.commit()
-        return {"message": "Task deleted successfully"}, 200
+        return jsonify({"message": "Task deleted successfully"}), 200
     except Exception as e:
         print(e, "error@Delete_task")
         db.session.rollback()
-        return {"message": "Network Error"}, 500
+        return jsonify({"message": "Network Error"}), 500
