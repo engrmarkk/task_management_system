@@ -3,11 +3,11 @@ import json
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
-# database_uri = os.environ.get("DATABASE_URI",
-#                               f"sqlite:///{os.path.join(base_dir, 'task.sqlite')}")
-#
-# if database_uri and database_uri.startswith("postgres://"):
-#     database_uri = database_uri.replace("postgres://", "postgresql://", 1)
+database_uri = os.environ.get("DATABASE_URI",
+                              f"sqlite:///{os.path.join(base_dir, 'task.sqlite')}")
+
+if database_uri and database_uri.startswith("postgres://"):
+    database_uri = database_uri.replace("postgres://", "postgresql://", 1)
 
 
 class Config:
@@ -19,8 +19,8 @@ class Config:
 class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = False
     basedir = os.path.abspath(os.path.dirname(__file__))
-    # SQLALCHEMY_DATABASE_URI = database_uri
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(base_dir, "task.sqlite")
+    SQLALCHEMY_DATABASE_URI = database_uri
+    # SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(base_dir, "task.sqlite")
     JSON_SORT_KEYS = False
     JWT_ACCESS_TOKEN_EXPIRES = False
     JWT_BLACKLIST_ENABLED = True
