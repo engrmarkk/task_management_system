@@ -167,6 +167,7 @@ Python3: [Get Python](https://www.python.org/downloads/)
 
 
 7. Place your SECRET_KEY, JWT_SECRET_KEY, and DATABASE_URI (for postgresql, then a postgres link)
+   If you want to use use sqlite, you can ignore the DATABASE_URI in the env file (omit it)
    ```sh
    DATABASE_URI=<your_postgresql_link>
    SECRET_KEY=<your_secret_key>
