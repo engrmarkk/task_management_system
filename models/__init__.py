@@ -44,7 +44,7 @@ class Task(db.Model):
     task_content = db.Column(db.Text)
     completed = db.Column(db.Boolean, default=False)
     date_created = db.Column(db.DateTime, default=datetime.now)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.String(50), db.ForeignKey('user.id'), nullable=False)
 
     # serialized data to dict
     def to_dict(self):
